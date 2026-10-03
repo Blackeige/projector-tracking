@@ -7,288 +7,645 @@
 
 <style>
 *{box-sizing:border-box}
-html,body{
-margin:0;width:100%;height:100%;overflow:hidden;
-font-family:Arial,sans-serif;background:#07111f;color:white
-}
-#app{position:relative;width:100%;height:100%;overflow:hidden}
 
-/* STADE */
-#stadium{position:absolute;inset:0;overflow:hidden}
-.sky{position:absolute;inset:0 0 48%;background:linear-gradient(#06152b,#245a82)}
+html,body{
+margin:0;
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:Arial,sans-serif;
+background:#07111f;
+color:white
+}
+
+#app{
+position:relative;
+width:100%;
+height:100%;
+overflow:hidden
+}
+
+/* =========================
+   STADE
+========================= */
+
+#stadium{
+position:absolute;
+inset:0;
+overflow:hidden
+}
+
+.sky{
+position:absolute;
+inset:0 0 48%;
+background:linear-gradient(#06152b,#245a82)
+}
+
 .lights{
-position:absolute;top:8%;left:50%;transform:translateX(-50%);
-width:80%;height:12%;
-background:radial-gradient(ellipse,#ffffff 0 4%,transparent 5% 100%);
+position:absolute;
+top:8%;
+left:50%;
+transform:translateX(-50%);
+width:80%;
+height:12%;
+background:radial-gradient(
+ellipse,
+#ffffff 0 4%,
+transparent 5% 100%
+);
 opacity:.8
 }
+
 .crowd{
-position:absolute;left:0;right:0;top:25%;height:24%;
-background:repeating-linear-gradient(90deg,#18283a 0 8px,#30465a 8px 16px,#172437 16px 24px)
+position:absolute;
+left:0;
+right:0;
+top:25%;
+height:24%;
+background:
+repeating-linear-gradient(
+90deg,
+#18283a 0 8px,
+#30465a 8px 16px,
+#172437 16px 24px
+)
 }
+
 .pitch{
-position:absolute;left:-10%;right:-10%;bottom:-8%;height:58%;
-background:linear-gradient(#267b2e,#1b5e24);
-transform:perspective(700px) rotateX(12deg);
+position:absolute;
+left:-10%;
+right:-10%;
+bottom:-8%;
+height:58%;
+background:linear-gradient(
+#267b2e,
+#1b5e24
+);
+transform:
+perspective(700px)
+rotateX(12deg);
 transform-origin:bottom
 }
 
-/* BUT */
+/* =========================
+   BUT
+========================= */
+
 #goal{
-position:absolute;left:50%;top:30%;
-width:min(76vw,760px);height:min(42vh,390px);
+position:absolute;
+left:50%;
+top:30%;
+width:min(76vw,760px);
+height:min(42vh,390px);
 transform:translateX(-50%);
-border:12px solid #eeeeee;border-bottom-width:18px;
+border:12px solid #eeeeee;
+border-bottom-width:18px;
 box-shadow:0 0 35px #0008;
-background:linear-gradient(90deg,#ffffff12,#ffffff03);
+background:
+linear-gradient(
+90deg,
+#ffffff12,
+#ffffff03
+);
 transition:filter .2s
 }
+
 #goal::before{
-content:"";position:absolute;inset:0;
+content:"";
+position:absolute;
+inset:0;
 background:
-repeating-linear-gradient(90deg,transparent 0 34px,#fff5 35px 37px),
-repeating-linear-gradient(0deg,transparent 0 34px,#fff5 35px 37px);
+repeating-linear-gradient(
+90deg,
+transparent 0 34px,
+#fff5 35px 37px
+),
+repeating-linear-gradient(
+0deg,
+transparent 0 34px,
+#fff5 35px 37px
+);
 opacity:.45
 }
 
-/* POTEAUX */
-#goalPostLeft,
-#goalPostRight{
-position:absolute;
-top:30%;
-width:12px;
-height:min(42vh,390px);
-background:#ff0000;
-z-index:3;
-box-shadow:0 0 14px #0008;
-transition:background .15s;
-}
+/* =========================
+   GARDIEN
+========================= */
 
-#goalPostLeft{
-left:calc(50% - min(38vw,380px));
-}
-
-#goalPostRight{
-right:calc(50% - min(38vw,380px));
-}
-
-/* GARDIEN */
 #keeper{
-position:absolute;left:50%;top:56%;
-width:86px;height:150px;
+position:absolute;
+left:50%;
+top:56%;
+width:86px;
+height:150px;
 transform:translate(-50%,-50%);
-transition:left .08s linear,transform .15s ease;
+transition:
+left .08s linear,
+transform .15s ease;
 z-index:4
 }
+
 #keeper .head{
-width:42px;height:42px;border-radius:50%;
-background:#f0bd8a;margin:auto;position:relative;z-index:2
+width:42px;
+height:42px;
+border-radius:50%;
+background:#f0bd8a;
+margin:auto;
+position:relative;
+z-index:2
 }
+
 #keeper .head::after{
-content:"";position:absolute;left:7px;right:7px;top:8px;
-height:10px;background:#3b2419;border-radius:50%
+content:"";
+position:absolute;
+left:7px;
+right:7px;
+top:8px;
+height:10px;
+background:#3b2419;
+border-radius:50%
 }
+
 #keeper .body{
-width:62px;height:82px;background:#e7c51d;
-border-radius:18px 18px 8px 8px;margin:-3px auto 0;
-box-shadow:inset 0 -10px #c7a817
+width:62px;
+height:82px;
+background:#e7c51d;
+border-radius:
+18px 18px
+8px 8px;
+margin:-3px auto 0;
+box-shadow:
+inset 0 -10px #c7a817
 }
+
 #keeper .arm{
-position:absolute;top:50px;width:24px;height:76px;
-background:#e7c51d;border-radius:20px;
+position:absolute;
+top:50px;
+width:24px;
+height:76px;
+background:#e7c51d;
+border-radius:20px;
 transform-origin:top center
 }
-#keeper .arm.l{left:0;transform:rotate(25deg)}
-#keeper .arm.r{right:0;transform:rotate(-25deg)}
-#keeper .leg{
-position:absolute;top:119px;width:24px;height:62px;
-background:#182333;border-radius:12px
+
+#keeper .arm.l{
+left:0;
+transform:rotate(25deg)
 }
-#keeper .leg.l{left:20px}
-#keeper .leg.r{right:20px}
+
+#keeper .arm.r{
+right:0;
+transform:rotate(-25deg)
+}
+
+#keeper .leg{
+position:absolute;
+top:119px;
+width:24px;
+height:62px;
+background:#182333;
+border-radius:12px
+}
+
+#keeper .leg.l{
+left:20px
+}
+
+#keeper .leg.r{
+right:20px
+}
 
 #keeper.dive-left{
-transform:translate(-50%,-50%) rotate(-18deg) scale(1.08)
-}
-#keeper.dive-right{
-transform:translate(-50%,-50%) rotate(18deg) scale(1.08)
+transform:
+translate(-50%,-50%)
+rotate(-18deg)
+scale(1.08)
 }
 
-/* BALLON */
+#keeper.dive-right{
+transform:
+translate(-50%,-50%)
+rotate(18deg)
+scale(1.08)
+}
+
+/* =========================
+   BALLON
+========================= */
+
 #ball{
-position:absolute;left:50%;top:75%;
-width:30px;height:30px;border-radius:50%;
-background:white;box-shadow:0 2px 8px #0008;
+position:absolute;
+left:50%;
+top:75%;
+width:30px;
+height:30px;
+border-radius:50%;
+background:white;
+box-shadow:0 2px 8px #0008;
 transform:translate(-50%,-50%);
 z-index:5;
-transition:left .1s linear,top .1s linear
-}
-#ball.goalBall{animation:ballGoal .65s ease forwards}
-@keyframes ballGoal{
-0%{transform:translate(-50%,-50%) scale(1)}
-70%{transform:translate(-50%,-50%) scale(1.7)}
-100%{transform:translate(-50%,-50%) scale(.8);opacity:0}
+transition:
+left .1s linear,
+top .1s linear
 }
 
-/* BUT */
+#ball.goalBall{
+animation:
+ballGoal .65s ease forwards
+}
+
+@keyframes ballGoal{
+
+0%{
+transform:
+translate(-50%,-50%)
+scale(1)
+}
+
+70%{
+transform:
+translate(-50%,-50%)
+scale(1.7)
+}
+
+100%{
+transform:
+translate(-50%,-50%)
+scale(.8);
+opacity:0
+}
+
+}
+
+/* =========================
+   EFFET BUT
+========================= */
+
 #goalEffect{
-position:absolute;inset:0;z-index:30;
-display:none;align-items:center;justify-content:center;
+position:absolute;
+inset:0;
+z-index:30;
+display:none;
+align-items:center;
+justify-content:center;
 background:rgba(255,255,255,0);
 pointer-events:none
 }
+
 #goalEffect.active{
-display:flex;animation:goalFlash .9s ease
+display:flex;
+animation:
+goalFlash .9s ease
 }
+
 #goalText{
-font-size:clamp(60px,15vw,150px);
-font-weight:900;text-shadow:0 8px 30px #000;
+font-size:
+clamp(
+60px,
+15vw,
+150px
+);
+font-weight:900;
+text-shadow:
+0 8px 30px #000;
 transform:scale(.5)
 }
+
 #goalEffect.active #goalText{
-animation:goalText .9s cubic-bezier(.2,1.5,.3,1)
-}
-@keyframes goalFlash{
-0%{background:rgba(255,255,255,.9)}
-25%{background:rgba(255,215,0,.25)}
-100%{background:rgba(255,255,255,0)}
-}
-@keyframes goalText{
-0%{transform:scale(.3) rotate(-8deg);opacity:0}
-35%{transform:scale(1.2) rotate(3deg);opacity:1}
-100%{transform:scale(1) rotate(0);opacity:1}
+animation:
+goalText .9s cubic-bezier(
+.2,
+1.5,
+.3,
+1
+)
 }
 
-/* HUD */
+@keyframes goalFlash{
+
+0%{
+background:rgba(255,255,255,.9)
+}
+
+25%{
+background:rgba(255,215,0,.25)
+}
+
+100%{
+background:rgba(255,255,255,0)
+}
+
+}
+
+@keyframes goalText{
+
+0%{
+transform:
+scale(.3)
+rotate(-8deg);
+opacity:0
+}
+
+35%{
+transform:
+scale(1.2)
+rotate(3deg);
+opacity:1
+}
+
+100%{
+transform:
+scale(1)
+rotate(0);
+opacity:1
+}
+
+}
+
+/* =========================
+   HUD
+========================= */
+
 #hud{
-position:absolute;top:16px;left:16px;right:16px;
-display:flex;justify-content:space-between;z-index:10;
+position:absolute;
+top:16px;
+left:16px;
+right:16px;
+display:flex;
+justify-content:space-between;
+z-index:10;
 pointer-events:none
 }
+
 .badge{
 background:#07111fcc;
-padding:10px 14px;border-radius:12px
+padding:10px 14px;
+border-radius:12px
 }
 
-/* MENU */
-#menu,#settings{
-position:absolute;z-index:20;inset:0;
-display:flex;align-items:center;justify-content:center;
-background:#03101dcc;backdrop-filter:blur(6px)
+/* =========================
+   MENU
+========================= */
+
+#menu,
+#settings{
+position:absolute;
+z-index:20;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#03101dcc;
+backdrop-filter:blur(6px)
 }
+
 .panel{
-width:min(92vw,520px);max-height:92vh;overflow:auto;
-background:#0b1726ee;border:1px solid #ffffff22;
-border-radius:22px;padding:26px;
-box-shadow:0 20px 60px #0008
-}
-h1{margin:0 0 8px;font-size:clamp(30px,7vw,56px)}
-h2{margin-top:0}
-.sub{opacity:.75;margin:0 0 22px}
-.actions{display:grid;gap:12px}
-button{
-cursor:pointer;border:0;border-radius:12px;
-padding:14px 20px;font-weight:700
-}
-.primary{background:#2ed573;color:#06140b}
-.secondary{background:white;color:#07111f}
-.dark{background:#203247;color:white}
-
-/* SETTINGS */
-.row{
-display:flex;gap:10px;align-items:center;
-justify-content:space-between;margin:16px 0;flex-wrap:wrap
-}
-.row label{font-weight:700}
-input[type="color"]{
-width:70px;height:42px;padding:2px
-}
-input[type="range"]{width:180px}
-select{
-background:#17283b;color:white;
+width:min(92vw,520px);
+max-height:92vh;
+overflow:auto;
+background:#0b1726ee;
 border:1px solid #ffffff22;
-border-radius:10px;padding:10px;max-width:100%
+border-radius:22px;
+padding:26px;
+box-shadow:
+0 20px 60px #0008
 }
 
-/* CAMERA */
+h1{
+margin:0 0 8px;
+font-size:
+clamp(
+30px,
+7vw,
+56px
+)
+}
+
+h2{
+margin-top:0
+}
+
+.sub{
+opacity:.75;
+margin:0 0 22px
+}
+
+.actions{
+display:grid;
+gap:12px
+}
+
+button{
+cursor:pointer;
+border:0;
+border-radius:12px;
+padding:14px 20px;
+font-weight:700
+}
+
+.primary{
+background:#2ed573;
+color:#06140b
+}
+
+.secondary{
+background:white;
+color:#07111f
+}
+
+.dark{
+background:#203247;
+color:white
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.row{
+display:flex;
+gap:10px;
+align-items:center;
+justify-content:space-between;
+margin:16px 0;
+flex-wrap:wrap
+}
+
+.row label{
+font-weight:700
+}
+
+input[type="color"]{
+width:70px;
+height:42px;
+padding:2px
+}
+
+input[type="range"]{
+width:180px
+}
+
+select{
+background:#17283b;
+color:white;
+border:1px solid #ffffff22;
+border-radius:10px;
+padding:10px;
+max-width:100%
+}
+
+/* =========================
+   CAMERA
+========================= */
+
 #cameraPanel{
-position:absolute;right:16px;bottom:16px;
-width:min(34vw,360px);min-width:210px;
-aspect-ratio:4/3;background:black;
+position:absolute;
+right:16px;
+bottom:16px;
+width:min(34vw,360px);
+min-width:210px;
+aspect-ratio:4/3;
+background:#000;
 border:2px solid #ffffff55;
-border-radius:14px;overflow:hidden;z-index:12
+border-radius:14px;
+overflow:hidden;
+z-index:12
 }
 
-/*
- * PAR DÉFAUT PAS DE MIROIR.
- * Le mode Mirror peut être activé
- * dans les paramètres.
- */
 #camera{
-width:100%;height:100%;
+width:100%;
+height:100%;
 object-fit:cover;
 transform:none
 }
 
-#trackCanvas{display:none}
+#trackCanvas{
+display:none
+}
+
+/* =========================
+   OVERLAY TRACKING CAMERA
+========================= */
+
+#cameraOverlay{
+position:absolute;
+inset:0;
+pointer-events:none;
+z-index:20
+}
+
+/*
+ * Carré du ballon.
+ *
+ * Il est calculé sur la vraie
+ * zone détectée, donc il suit
+ * réellement le ballon.
+ */
 
 #trackBox{
 position:absolute;
-width:55px;height:55px;
+width:40px;
+height:40px;
 border:3px solid #2ed573;
 border-radius:8px;
 display:none;
 transform:translate(-50%,-50%);
-z-index:13;
+z-index:25;
 pointer-events:none;
-box-shadow:0 0 12px #2ed57399
+box-shadow:
+0 0 10px #000,
+0 0 15px currentColor
 }
 
-/* REPÈRES DES POTEAUX DANS L'APERÇU */
-#previewLeftPost,
-#previewRightPost{
+/*
+ * Carrés des deux feuilles/poteaux.
+ * Ils apparaissent UNIQUEMENT
+ * lorsqu'une vraie couleur est
+ * détectée dans la caméra.
+ */
+
+.postBox{
 position:absolute;
-width:5px;
-top:0;
-bottom:0;
-z-index:12;
-pointer-events:none;
 display:none;
-box-shadow:0 0 8px #000
-}
-
-#previewLeftPost{
-left:10%;
-}
-
-#previewRightPost{
-right:10%;
-}
-
-/* ZONE ENTRE LES POTEAUX */
-#previewGoalZone{
-position:absolute;
-left:10%;
-right:10%;
-top:8%;
-bottom:8%;
-border:2px dashed #ffffff88;
-z-index:11;
+transform:translate(-50%,-50%);
+border:3px solid;
+border-radius:6px;
+z-index:24;
 pointer-events:none;
-display:none
+box-shadow:
+0 0 10px #000,
+0 0 15px currentColor
 }
 
-/* STATUT MUR */
+#leftPostBox{
+color:#00aaff;
+border-color:#00aaff
+}
+
+#rightPostBox{
+color:#ff3333;
+border-color:#ff3333
+}
+
+/*
+ * Ligne de zone réelle entre
+ * les deux poteaux détectés.
+ *
+ * Ce n'est PAS une ligne fixe :
+ * elle est calculée uniquement
+ * lorsque les deux feuilles
+ * sont réellement détectées.
+ */
+
+#goalTrackingLine{
+position:absolute;
+height:3px;
+display:none;
+transform:translateY(-50%);
+z-index:23;
+pointer-events:none;
+background:linear-gradient(
+90deg,
+#ffffff00,
+#ffffffcc,
+#ffffff00
+);
+box-shadow:
+0 0 8px #fff
+}
+
+/*
+ * Indicateur de proximité.
+ */
+
+#proximityIndicator{
+position:absolute;
+display:none;
+transform:translate(-50%,-100%);
+background:#07111fcc;
+padding:5px 8px;
+border-radius:7px;
+font-size:11px;
+white-space:nowrap;
+z-index:27;
+pointer-events:none
+}
+
+/*
+ * Etat des poteaux.
+ */
+
 #wallStatus{
 position:absolute;
-left:50%;bottom:8px;
+left:50%;
+bottom:8px;
 transform:translateX(-50%);
 background:#07111fcc;
 padding:6px 10px;
 border-radius:8px;
 font-size:12px;
 display:none;
-z-index:14;
+z-index:28;
 white-space:nowrap
 }
 
@@ -299,13 +656,33 @@ margin-top:14px;
 min-height:18px
 }
 
-.hidden{display:none!important}
+.hidden{
+display:none!important
+}
 
 @media(max-width:650px){
-#goal{top:31%;height:35vh;border-width:8px}
-#keeper{transform:translate(-50%,-50%) scale(.75)}
-#cameraPanel{width:42vw;min-width:150px}
-.panel{padding:20px}
+
+#goal{
+top:31%;
+height:35vh;
+border-width:8px
+}
+
+#keeper{
+transform:
+translate(-50%,-50%)
+scale(.75)
+}
+
+#cameraPanel{
+width:42vw;
+min-width:150px
+}
+
+.panel{
+padding:20px
+}
+
 }
 </style>
 </head>
@@ -314,59 +691,117 @@ min-height:18px
 
 <div id="app">
 
+<!-- STADE -->
+
 <div id="stadium">
+
 <div class="sky"></div>
 <div class="lights"></div>
 <div class="crowd"></div>
 <div class="pitch"></div>
+
 </div>
+
+
+<!-- BUT -->
 
 <div id="goal"></div>
 
-<div id="goalPostLeft"></div>
-<div id="goalPostRight"></div>
+
+<!-- GARDIEN -->
 
 <div id="keeper">
+
 <div class="head"></div>
+
 <div class="body"></div>
+
 <div class="arm l"></div>
 <div class="arm r"></div>
+
 <div class="leg l"></div>
 <div class="leg r"></div>
+
 </div>
+
+
+<!-- BALLON -->
 
 <div id="ball"></div>
 
+
+<!-- HUD -->
+
 <div id="hud">
-<div class="badge">⚽ PROJECTOR TRACKING</div>
-<div class="badge" id="hudStatus">CAMÉRA : OFF</div>
+
+<div class="badge">
+⚽ PROJECTOR TRACKING
 </div>
 
-<div id="cameraPanel" class="hidden">
+<div
+class="badge"
+id="hudStatus"
+>
+CAMÉRA : OFF
+</div>
+
+</div>
+
+
+<!-- CAMERA -->
+
+<div
+id="cameraPanel"
+class="hidden"
+>
 
 <video
 id="camera"
 autoplay
 playsinline
-muted>
-</video>
+muted
+></video>
 
-<div id="previewGoalZone"></div>
-<div id="previewLeftPost"></div>
-<div id="previewRightPost"></div>
-
-</div>
-
-<canvas id="trackCanvas"></canvas>
+<div id="cameraOverlay">
 
 <div id="trackBox"></div>
 
-<div id="wallStatus">
-🧱 POTEAUX DÉTECTÉS
+<div
+id="leftPostBox"
+class="postBox"
+></div>
+
+<div
+id="rightPostBox"
+class="postBox"
+></div>
+
+<div id="goalTrackingLine"></div>
+
+<div id="proximityIndicator"></div>
+
 </div>
 
+<div id="wallStatus">
+🧱 POTEAUX : RECHERCHE
+</div>
+
+</div>
+
+
+<!-- CANVAS -->
+
+<canvas id="trackCanvas"></canvas>
+
+
+<!-- BUT -->
+
 <div id="goalEffect">
-<div id="goalText">⚽ BUT !</div>
+
+<div id="goalText">
+⚽ BUT !
+</div>
+
 </div>
 
 
@@ -387,15 +822,24 @@ Jeu de gardien avec tracking couleur par caméra.
 
 <div class="actions">
 
-<button id="startBtn" class="primary">
+<button
+id="startBtn"
+class="primary"
+>
 ▶ START GAME
 </button>
 
-<button id="cameraBtn" class="secondary">
+<button
+id="cameraBtn"
+class="secondary"
+>
 📷 CONNECT TO CAMERA
 </button>
 
-<button id="settingsBtn" class="dark">
+<button
+id="settingsBtn"
+class="dark"
+>
 ⚙ SETTINGS
 </button>
 
@@ -410,11 +854,17 @@ Jeu de gardien avec tracking couleur par caméra.
 
 <!-- SETTINGS -->
 
-<section id="settings" class="hidden">
+<section
+id="settings"
+class="hidden"
+>
 
 <div class="panel">
 
-<h2>⚙ SETTINGS</h2>
+<h2>
+⚙ SETTINGS
+</h2>
+
 
 <div class="row">
 
@@ -470,7 +920,10 @@ Résolution caméra
 320×240
 </option>
 
-<option value="640x480" selected>
+<option
+value="640x480"
+selected
+>
 640×480
 </option>
 
@@ -496,7 +949,7 @@ Couleur cible
 <input
 id="color"
 type="color"
-value="#ff0000"
+value="#ffff00"
 >
 
 </div>
@@ -505,16 +958,18 @@ value="#ff0000"
 <div class="row">
 
 <label>
-Tolérance
-<span id="tolVal">75</span>
+Tolérance tracking
+<span id="tolVal">
+45
+</span>
 </label>
 
 <input
 id="tolerance"
 type="range"
-min="10"
-max="150"
-value="75"
+min="5"
+max="120"
+value="45"
 >
 
 </div>
@@ -541,7 +996,7 @@ Objet lumineux
 </div>
 
 
-<!-- NOUVEAU : POTEAUX -->
+<!-- POTEAU GAUCHE -->
 
 <div class="row">
 
@@ -557,6 +1012,8 @@ value="#0000ff"
 
 </div>
 
+
+<!-- POTEAU DROIT -->
 
 <div class="row">
 
@@ -576,16 +1033,18 @@ value="#ff0000"
 <div class="row">
 
 <label>
-Sensibilité poteaux
-<span id="postTolVal">65</span>
+Tolérance poteaux
+<span id="postTolVal">
+35
+</span>
 </label>
 
 <input
 id="postTolerance"
 type="range"
-min="20"
-max="150"
-value="65"
+min="5"
+max="120"
+value="35"
 >
 
 </div>
@@ -612,7 +1071,7 @@ OFF
 </div>
 
 
-<!-- NOUVEAU : MIRROR -->
+<!-- MIRROR -->
 
 <div class="row">
 
@@ -660,19 +1119,22 @@ OFF
 
 <button
 id="applyBtn"
-class="primary">
+class="primary"
+>
 APPLY
 </button>
 
 <button
 id="refreshCamerasBtn"
-class="secondary">
+class="secondary"
+>
 🔄 ACTUALISER CAMÉRAS
 </button>
 
 <button
 id="backBtn"
-class="dark">
+class="dark"
+>
 BACK
 </button>
 
@@ -688,7 +1150,7 @@ BACK
 <script>
 
 /* =========================
-   CONFIGURATION
+   CONFIG
 ========================= */
 
 const cfg={
@@ -696,10 +1158,16 @@ const cfg={
 width:640,
 height:480,
 
-color:"#ff0000",
-tolerance:75,
+color:"#ffff00",
+
+/*
+ * Tolérance plus basse :
+ * on privilégie le tracking.
+ */
+tolerance:45,
 
 tracking:"ball",
+
 preview:"on",
 
 cameraId:"",
@@ -712,18 +1180,23 @@ wallDetection:"on",
 leftPostColor:"#0000ff",
 rightPostColor:"#ff0000",
 
-postTolerance:65
+postTolerance:35
 
 };
+
 
 let stream=null;
 let trackingTimer=null;
 let playing=false;
+
 let lastGoalTime=0;
+
 let cameraList=[];
 
 
-/* DOM */
+/* =========================
+   DOM
+========================= */
 
 const $=id=>
 document.getElementById(id);
@@ -753,14 +1226,17 @@ r/=255;
 g/=255;
 b/=255;
 
-const max=Math.max(r,g,b);
-const min=Math.min(r,g,b);
+const max=
+Math.max(r,g,b);
+
+const min=
+Math.min(r,g,b);
 
 const d=max-min;
 
 let h=0;
 
-if(d){
+if(d!==0){
 
 if(max===r){
 
@@ -786,7 +1262,7 @@ h+=360;
 
 return[
 h,
-max?d/max:0,
+max===0?0:d/max,
 max
 ];
 
@@ -794,7 +1270,7 @@ max
 
 
 /* =========================
-   HEX → RGB
+   HEX RGB
 ========================= */
 
 function hexRgb(hex){
@@ -822,37 +1298,48 @@ hex.slice(5,7),
 
 
 /* =========================
-   HSV CIBLE
-========================= */
-
-function targetHsv(){
-
-const[r,g,b]=
-hexRgb(cfg.color);
-
-return rgbToHsv(r,g,b);
-
-}
-
-
-/* =========================
-   CAMERA COLOR HSV
+   COULEUR → HSV
 ========================= */
 
 function colorHsv(hex){
 
-const[r,g,b]=
-hexRgb(hex);
+const[
+r,
+g,
+b
+]=hexRgb(hex);
 
 return rgbToHsv(
-r,g,b
+r,
+g,
+b
 );
 
 }
 
 
 /* =========================
-   DISTANCE COULEUR
+   DISTANCE TEINTE
+========================= */
+
+function hueDistance(
+a,
+b
+){
+
+let d=
+Math.abs(a-b);
+
+return Math.min(
+d,
+360-d
+);
+
+}
+
+
+/* =========================
+   TEST COULEUR
 ========================= */
 
 function colorMatch(
@@ -863,42 +1350,65 @@ target,
 tolerance
 ){
 
-const[h,s,v]=
-rgbToHsv(r,g,b);
-
-let dh=
-Math.abs(h-target[0]);
-
-dh=
-Math.min(
-dh,
-360-dh
+const[
+h,
+s,
+v
+]=rgbToHsv(
+r,
+g,
+b
 );
+
 
 /*
- * Tracking couleur privilégié :
- *
- * la teinte est prioritaire,
- * puis saturation/luminosité.
+ * La teinte est prioritaire.
  */
 
-return(
+if(
+hueDistance(
+h,
+target[0]
+)>
+tolerance
+){
 
-dh<=tolerance &&
+return false;
 
-Math.abs(
-s-target[1]
-)<=.65 &&
+}
 
-v>.12
 
-);
+/*
+ * Évite les pixels gris/blanc
+ * qui ressemblent à toutes
+ * les couleurs.
+ */
+
+if(
+s<
+Math.max(
+.18,
+target[1]-.45
+)
+){
+
+return false;
+
+}
+
+if(v<.12){
+
+return false;
+
+}
+
+return true;
 
 }
 
 
 /* =========================
-   CAMERAS
+   CAMÉRAS
 ========================= */
 
 async function loadCameras(){
@@ -907,13 +1417,16 @@ if(
 !navigator.mediaDevices ||
 !navigator.mediaDevices.enumerateDevices
 ){
+
 return;
+
 }
 
 try{
 
 const devices=
-await navigator.mediaDevices
+await navigator
+.mediaDevices
 .enumerateDevices();
 
 cameraList=
@@ -969,7 +1482,7 @@ console.error(error);
 
 
 /* =========================
-   OUVRIR CAMERA
+   CAMERA
 ========================= */
 
 async function openCamera(){
@@ -988,6 +1501,7 @@ ideal:cfg.height
 
 };
 
+
 if(cfg.cameraId){
 
 videoConstraints.deviceId={
@@ -1003,6 +1517,7 @@ ideal:cfg.cameraType
 };
 
 }
+
 
 try{
 
@@ -1026,8 +1541,8 @@ cameraStream;
 
 
 /*
- * Aperçu non-miroir
- * par défaut.
+ * Mirror uniquement
+ * sur l'affichage.
  */
 
 $("camera").style.transform=
@@ -1047,7 +1562,8 @@ cfg.preview==="off"
 playing=true;
 
 const track=
-stream.getVideoTracks()[0];
+stream
+.getVideoTracks()[0];
 
 const settings=
 track.getSettings();
@@ -1072,8 +1588,6 @@ setStatus(
 "CAMÉRA : ON"
 );
 
-updatePreviewPosts();
-
 startTracking();
 
 }catch(error){
@@ -1092,7 +1606,7 @@ setStatus(
 
 
 /* =========================
-   PERMISSION CAMERA
+   PERMISSION
 ========================= */
 
 async function requestCameraPermission(){
@@ -1113,7 +1627,8 @@ return;
 try{
 
 const tempStream=
-await navigator.mediaDevices
+await navigator
+.mediaDevices
 .getUserMedia({
 
 video:true,
@@ -1146,7 +1661,7 @@ setStatus(
 
 
 /* =========================
-   STOP CAMERA
+   STOP
 ========================= */
 
 function stopCamera(){
@@ -1180,46 +1695,216 @@ trackingTimer=null;
 
 
 /* =========================
-   APERCU POTEAUX
+   CENTRE + BOUNDING BOX
 ========================= */
 
-function updatePreviewPosts(){
+function createDetection(){
 
-$("previewLeftPost").style.background=
-cfg.leftPostColor;
+return{
 
-$("previewRightPost").style.background=
-cfg.rightPostColor;
+count:0,
 
-$("goalPostLeft").style.background=
-cfg.leftPostColor;
+sumX:0,
+sumY:0,
 
-$("goalPostRight").style.background=
-cfg.rightPostColor;
+minX:Infinity,
+minY:Infinity,
 
-if(cfg.wallDetection==="on"){
+maxX:-Infinity,
+maxY:-Infinity
 
-$("previewLeftPost").style.display=
-"block";
+};
 
-$("previewRightPost").style.display=
-"block";
+}
 
-$("previewGoalZone").style.display=
-"block";
+
+function addPixel(
+d,
+x,
+y
+){
+
+d.count++;
+
+d.sumX+=x;
+d.sumY+=y;
+
+if(x<d.minX)d.minX=x;
+if(x>d.maxX)d.maxX=x;
+
+if(y<d.minY)d.minY=y;
+if(y>d.maxY)d.maxY=y;
+
+}
+
+
+function finishDetection(d){
+
+if(d.count<=0){
+
+return null;
+
+}
+
+return{
+
+x:d.sumX/d.count,
+y:d.sumY/d.count,
+
+width:
+d.maxX-d.minX,
+
+height:
+d.maxY-d.minY,
+
+area:
+(d.maxX-d.minX)*
+(d.maxY-d.minY),
+
+count:d.count,
+
+minX:d.minX,
+minY:d.minY,
+maxX:d.maxX,
+maxY:d.maxY
+
+};
+
+}
+
+
+/* =========================
+   DETECTION BALLON
+========================= */
+
+function detectBall(
+data,
+width,
+height
+){
+
+const target=
+colorHsv(cfg.color);
+
+const d=
+createDetection();
+
+
+/*
+ * Pas de tracking sur les bords
+ * extrêmes pour limiter le bruit.
+ */
+
+const step=3;
+
+for(
+let y=0;
+y<height;
+y+=step
+){
+
+for(
+let x=0;
+x<width;
+x+=step
+){
+
+const i=
+(y*width+x)*4;
+
+const r=data[i];
+const g=data[i+1];
+const b=data[i+2];
+
+let match=false;
+
+if(
+cfg.tracking==="bright"
+){
+
+match=
+r+g+b>690;
 
 }else{
 
-$("previewLeftPost").style.display=
-"none";
-
-$("previewRightPost").style.display=
-"none";
-
-$("previewGoalZone").style.display=
-"none";
+match=
+colorMatch(
+r,
+g,
+b,
+target,
+cfg.tolerance
+);
 
 }
+
+if(match){
+
+addPixel(
+d,
+x,
+y
+);
+
+}
+
+}
+
+}
+
+
+/*
+ * Il faut suffisamment de pixels.
+ */
+
+if(
+d.count<10
+){
+
+return null;
+
+}
+
+const result=
+finishDetection(d);
+
+
+/*
+ * Rejette les énormes zones
+ * de couleur.
+ *
+ * Ça évite qu'un mur entier
+ * jaune devienne le ballon.
+ */
+
+const imageArea=
+width*height;
+
+if(
+result.area>
+imageArea*.35
+){
+
+return null;
+
+}
+
+
+/*
+ * Rejette les minuscules
+ * parasites.
+ */
+
+if(
+result.width<4 ||
+result.height<4
+){
+
+return null;
+
+}
+
+return result;
 
 }
 
@@ -1236,31 +1921,34 @@ target,
 side
 ){
 
+const d=
+createDetection();
+
 const step=3;
-
-let sx=0;
-let sy=0;
-let count=0;
-
-let minX=
-side==="left"
-?
-0
-:
-Math.floor(width*.50);
-
-let maxX=
-side==="left"
-?
-Math.floor(width*.50)
-:
-width;
 
 
 /*
- * Recherche très focalisée
- * sur chaque moitié.
+ * Chaque couleur possède
+ * sa propre moitié.
  */
+
+let startX=0;
+let endX=width;
+
+if(side==="left"){
+
+startX=0;
+endX=
+Math.floor(width*.50);
+
+}else{
+
+startX=
+Math.floor(width*.50);
+endX=width;
+
+}
+
 
 for(
 let y=0;
@@ -1269,8 +1957,8 @@ y+=step
 ){
 
 for(
-let x=minX;
-x<maxX;
+let x=startX;
+x<endX;
 x+=step
 ){
 
@@ -1291,9 +1979,11 @@ cfg.postTolerance
 )
 ){
 
-sx+=x;
-sy+=y;
-count++;
+addPixel(
+d,
+x,
+y
+);
 
 }
 
@@ -1301,17 +1991,407 @@ count++;
 
 }
 
-if(count<10){
+
+if(
+d.count<12
+){
 
 return null;
 
 }
 
+const result=
+finishDetection(d);
+
+
+/*
+ * Un poteau doit avoir une
+ * forme suffisamment verticale.
+ */
+
+const aspect=
+result.height/
+Math.max(
+1,
+result.width
+);
+
+
+/*
+ * Une feuille peut être assez
+ * large, donc on garde une
+ * tolérance large.
+ */
+
+if(
+aspect<.35
+){
+
+return null;
+
+}
+
+return result;
+
+}
+
+
+/* =========================
+   AFFICHAGE TRACKING
+========================= */
+
+function showTrackBox(
+d
+){
+
+if(!d){
+
+$("trackBox")
+.style.display="none";
+
+return;
+
+}
+
+
+/*
+ * Centre + taille réelle.
+ */
+
+$("trackBox")
+.style.display="block";
+
+$("trackBox")
+.style.left=
+(d.x/cfg.width*100)+"%";
+
+$("trackBox")
+.style.top=
+(d.y/cfg.height*100)+"%";
+
+$("trackBox")
+.style.width=
+Math.max(
+35,
+(d.width/cfg.width*100)
+)+"%";
+
+$("trackBox")
+.style.height=
+Math.max(
+35,
+(d.height/cfg.height*100)
+)+"%";
+
+
+$("trackBox").style.color=
+cfg.color;
+
+$("trackBox").style.borderColor=
+cfg.color;
+
+}
+
+
+/* =========================
+   AFFICHAGE POTEAU
+========================= */
+
+function showPostBox(
+element,
+post,
+color
+){
+
+if(!post){
+
+element.style.display="none";
+
+return;
+
+}
+
+element.style.display="block";
+
+element.style.left=
+(post.x/cfg.width*100)+"%";
+
+element.style.top=
+(post.y/cfg.height*100)+"%";
+
+element.style.width=
+Math.max(
+18,
+post.width/cfg.width*100
+)+"%";
+
+element.style.height=
+Math.max(
+25,
+post.height/cfg.height*100
+)+"%";
+
+element.style.borderColor=
+color;
+
+element.style.color=
+color;
+
+}
+
+
+/* =========================
+   LIGNE ENTRE POTEAUX
+========================= */
+
+function updateGoalTrackingLine(
+left,
+right
+){
+
+if(!left || !right){
+
+$("goalTrackingLine")
+.style.display="none";
+
+return;
+
+}
+
+
+const x1=
+left.x/cfg.width*100;
+
+const x2=
+right.x/cfg.width*100;
+
+const y=
+(
+(
+left.y+
+right.y
+)/2
+)/cfg.height*100;
+
+const width=
+Math.abs(x2-x1);
+
+const center=
+(x1+x2)/2;
+
+$("goalTrackingLine")
+.style.display="block";
+
+$("goalTrackingLine")
+.style.left=
+(center-width/2)+"%";
+
+$("goalTrackingLine")
+.style.width=
+width+"%";
+
+$("goalTrackingLine")
+.style.top=
+y+"%";
+
+}
+
+
+/* =========================
+   PROXIMITÉ DU MUR
+========================= */
+
+function calculateWallProximity(
+ball,
+left,
+right
+){
+
+if(
+!ball ||
+!left ||
+!right
+){
+
 return{
 
-x:sx/count,
-y:sy/count,
-count:count
+near:false,
+distance:Infinity,
+side:null
+
+};
+
+}
+
+
+/*
+ * Les poteaux détectés donnent
+ * la vraie largeur de la cage
+ * dans l'image.
+ */
+
+const leftX=
+Math.min(
+left.x,
+right.x
+);
+
+const rightX=
+Math.max(
+left.x,
+right.x
+);
+
+
+/*
+ * Distance du ballon au poteau
+ * le plus proche.
+ */
+
+const distanceLeft=
+Math.abs(
+ball.x-leftX
+);
+
+const distanceRight=
+Math.abs(
+ball.x-rightX
+);
+
+const distance=
+Math.min(
+distanceLeft,
+distanceRight
+);
+
+const side=
+distanceLeft<
+distanceRight
+?
+"gauche"
+:
+"droite";
+
+
+/*
+ * Largeur actuelle entre les
+ * deux poteaux.
+ */
+
+const goalWidth=
+Math.max(
+20,
+rightX-leftX
+);
+
+
+/*
+ * IMPORTANT :
+ *
+ * Un gros ballon au milieu
+ * ne déclenche PAS.
+ *
+ * Il faut qu'il soit réellement
+ * très proche du poteau.
+ *
+ * La limite dépend de la largeur
+ * réelle de la cage détectée.
+ */
+
+const closeLimit=
+Math.max(
+8,
+goalWidth*.12
+);
+
+
+/*
+ * Vérification verticale.
+ *
+ * Le ballon doit être à la hauteur
+ * de la zone des poteaux.
+ */
+
+const averagePostY=
+(
+left.y+
+right.y
+)/2;
+
+const verticalDistance=
+Math.abs(
+ball.y-averagePostY
+);
+
+const verticalLimit=
+Math.max(
+25,
+goalWidth*.55
+);
+
+const correctHeight=
+verticalDistance<
+verticalLimit;
+
+
+/*
+ * Vérification supplémentaire :
+ *
+ * Le ballon doit avoir une taille
+ * raisonnable par rapport à la
+ * cage, mais cette taille ne peut
+ * JAMAIS déclencher le but toute seule.
+ */
+
+const ballSize=
+Math.max(
+ball.width,
+ball.height
+);
+
+const sizeRatio=
+ballSize/
+goalWidth;
+
+const closeEnough=
+distance<=closeLimit;
+
+
+/*
+ * On demande donc :
+ *
+ * 1. deux poteaux visibles
+ * 2. ballon proche d'un poteau
+ * 3. bonne hauteur
+ * 4. taille cohérente
+ *
+ * Le point 4 n'est qu'un filtre,
+ * pas le déclencheur.
+ */
+
+const near=
+closeEnough &&
+correctHeight &&
+sizeRatio>.01 &&
+sizeRatio<.45;
+
+
+return{
+
+near:near,
+
+distance:distance,
+
+side:side,
+
+goalWidth:goalWidth,
+
+ratio:
+Math.min(
+1,
+distance/
+closeLimit
+)
 
 };
 
@@ -1319,177 +2399,139 @@ count:count
 
 
 /* =========================
-   DETECTION DES DEUX POTEAUX
+   AFFICHAGE PROXIMITÉ
 ========================= */
 
-function detectGoalPosts(
-data,
-width,
-height
+function showProximity(
+ball,
+proximity
+){
+
+if(
+!ball ||
+!proximity
+){
+
+$("proximityIndicator")
+.style.display="none";
+
+return;
+
+}
+
+
+/*
+ * Toujours montrer la distance
+ * lorsque les poteaux et le
+ * ballon sont détectés.
+ */
+
+$("proximityIndicator")
+.style.display="block";
+
+$("proximityIndicator")
+.style.left=
+(ball.x/cfg.width*100)+"%";
+
+$("proximityIndicator")
+.style.top=
+(ball.y/cfg.height*100)+"%";
+
+
+if(proximity.near){
+
+$("proximityIndicator")
+.textContent=
+"⚡ COLLÉ AU POTEAU → BUT";
+
+$("proximityIndicator")
+.style.background=
+"#e74c3ccc";
+
+}else{
+
+const distance=
+Math.round(
+proximity.distance
+);
+
+$("proximityIndicator")
+.textContent=
+"📏 "+distance+" px du poteau";
+
+$("proximityIndicator")
+.style.background=
+"#07111fcc";
+
+}
+
+}
+
+
+/* =========================
+   STATUS POTEAUX
+========================= */
+
+function updateWallStatus(
+left,
+right,
+proximity
 ){
 
 if(
 cfg.wallDetection==="off"
 ){
 
-$("wallStatus").style.display=
-"none";
+$("wallStatus")
+.style.display="none";
 
-return{
-
-left:null,
-right:null
-
-};
+return;
 
 }
 
-const leftTarget=
-colorHsv(
-cfg.leftPostColor
-);
 
-const rightTarget=
-colorHsv(
-cfg.rightPostColor
-);
+$("wallStatus")
+.style.display="block";
 
-const left=
-detectPost(
-data,
-width,
-height,
-leftTarget,
-"left"
-);
 
-const right=
-detectPost(
-data,
-width,
-height,
-rightTarget,
-"right"
-);
+if(
+left &&
+right
+){
 
-if(left && right){
+if(
+proximity &&
+proximity.near
+){
 
-$("wallStatus").style.display=
-"block";
+$("wallStatus")
+.textContent=
+"🧱 ⚡ BALLON COLLÉ AU POTEAU";
 
-$("wallStatus").textContent=
-"🧱 POTEAUX DÉTECTÉS";
+}else{
 
-}else if(left || right){
+$("wallStatus")
+.textContent=
+"🧱 2 POTEAUX DÉTECTÉS";
 
-$("wallStatus").style.display=
-"block";
+}
 
-$("wallStatus").textContent=
+}else if(
+left ||
+right
+){
+
+$("wallStatus")
+.textContent=
 "🧱 1 POTEAU DÉTECTÉ";
 
 }else{
 
-$("wallStatus").style.display=
-"none";
+$("wallStatus")
+.textContent=
+"🧱 RECHERCHE DES POTEAUX";
 
 }
-
-return{
-
-left:left,
-right:right
-
-};
-
-}
-
-
-/* =========================
-   DETECTION COLLISION MUR
-========================= */
-
-function isTouchingWall(
-x,
-y,
-posts
-){
-
-if(
-!posts.left ||
-!posts.right
-){
-
-return false;
-
-}
-
-const leftX=
-posts.left.x;
-
-const rightX=
-posts.right.x;
-
-
-/*
- * Si les deux feuilles sont
- * dans le bon ordre, on crée
- * automatiquement la zone du but.
- */
-
-const goalLeft=
-Math.min(
-leftX,
-rightX
-);
-
-const goalRight=
-Math.max(
-leftX,
-rightX
-);
-
-
-/*
- * Tolérance autour des poteaux.
- */
-
-const marginX=
-Math.max(
-12,
-(cfg.width*.04)
-);
-
-
-/*
- * Zone verticale :
- * on accepte une grande partie
- * de l'espace entre les poteaux.
- */
-
-const insideX=
-x>=goalLeft-marginX &&
-x<=goalRight+marginX;
-
-const avgPostY=
-(
-posts.left.y+
-posts.right.y
-)/2;
-
-const verticalDistance=
-Math.abs(
-y-avgPostY
-);
-
-const verticalOK=
-verticalDistance<
-cfg.height*.42;
-
-return(
-insideX &&
-verticalOK
-);
 
 }
 
@@ -1504,7 +2546,8 @@ const now=
 performance.now();
 
 if(
-now-lastGoalTime<1400
+now-lastGoalTime<
+1400
 ){
 
 return;
@@ -1514,9 +2557,10 @@ return;
 lastGoalTime=
 now;
 
-$("goal")
+
+$("goalEffect")
 .classList.remove(
-"goalHit"
+"active"
 );
 
 $("ball")
@@ -1524,32 +2568,27 @@ $("ball")
 "goalBall"
 );
 
+void $("goalEffect")
+.offsetWidth;
+
+void $("ball")
+.offsetWidth;
+
+
 $("goalEffect")
-.classList.remove(
-"active"
-);
-
-void $("goal").offsetWidth;
-void $("goalEffect").offsetWidth;
-
-$("goal")
 .classList.add(
-"goalHit"
+"active"
 );
 
 $("ball")
 .classList.add(
 "goalBall"
-);
-
-$("goalEffect")
-.classList.add(
-"active"
 );
 
 setStatus(
 "⚽ BUT !"
 );
+
 
 setTimeout(
 ()=>{
@@ -1589,7 +2628,10 @@ y
 ){
 
 const percentX=
-(1-x/cfg.width)*100;
+(
+1-
+x/cfg.width
+)*100;
 
 const keeperPosition=
 Math.max(
@@ -1600,21 +2642,30 @@ percentX
 )
 );
 
-$("keeper").style.left=
-keeperPosition+"%";
+$("keeper")
+.style.left=
+keeperPosition+
+"%";
 
 
 const ballX=
-8+(x/cfg.width)*84;
+8+
+(x/cfg.width)*84;
 
 const ballY=
-48+(y/cfg.height)*40;
+48+
+(y/cfg.height)*40;
 
-$("ball").style.left=
-ballX+"%";
+$("ball")
+.style.left=
+ballX+
+"%";
 
-$("ball").style.top=
-ballY+"%";
+$("ball")
+.style.top=
+ballY+
+"%";
+
 
 $("keeper")
 .classList.remove(
@@ -1662,6 +2713,7 @@ trackingTimer
 
 }
 
+
 const canvas=
 $("trackCanvas");
 
@@ -1680,14 +2732,6 @@ canvas.height=
 cfg.height;
 
 
-/*
- * Les couleurs sont analysées
- * sur la vidéo originale.
- *
- * Le Mirror ne modifie donc PAS
- * la logique du tracking.
- */
-
 function loop(){
 
 if(
@@ -1702,6 +2746,7 @@ return;
 const video=
 $("camera");
 
+
 if(
 video.readyState>=2
 ){
@@ -1713,6 +2758,7 @@ video,
 cfg.width,
 cfg.height
 );
+
 
 const image=
 ctx.getImageData(
@@ -1727,186 +2773,138 @@ image.data;
 
 
 /*
- * POTEAUX EN PREMIER.
+ * ======================
+ * 1. POTEAUX
+ * ======================
  */
 
-const posts=
-detectGoalPosts(
+let leftPost=null;
+let rightPost=null;
+
+
+if(
+cfg.wallDetection==="on"
+){
+
+leftPost=
+detectPost(
+data,
+cfg.width,
+cfg.height,
+colorHsv(
+cfg.leftPostColor
+),
+"left"
+);
+
+rightPost=
+detectPost(
+data,
+cfg.width,
+cfg.height,
+colorHsv(
+cfg.rightPostColor
+),
+"right"
+);
+
+}
+
+
+showPostBox(
+$("leftPostBox"),
+leftPost,
+cfg.leftPostColor
+);
+
+showPostBox(
+$("rightPostBox"),
+rightPost,
+cfg.rightPostColor
+);
+
+updateGoalTrackingLine(
+leftPost,
+rightPost
+);
+
+
+/*
+ * ======================
+ * 2. BALLON
+ * ======================
+ */
+
+const ball=
+detectBall(
 data,
 cfg.width,
 cfg.height
 );
 
 
-/*
- * TRACKING OBJET.
- */
-
-let sx=0;
-let sy=0;
-let count=0;
-
-const[
-targetH,
-targetS,
-targetV
-]=
-targetHsv();
-
-const target=[
-targetH,
-targetS,
-targetV
-];
-
+if(ball){
 
 /*
- * Tracking haute priorité.
- *
- * Plus précis que la détection
- * du mur : chaque pixel de
- * couleur cible est analysé.
+ * Carré réel autour
+ * de l'objet.
  */
 
-const step=3;
-
-for(
-let y=0;
-y<cfg.height;
-y+=step
-){
-
-for(
-let x=0;
-x<cfg.width;
-x+=step
-){
-
-const i=
-(y*cfg.width+x)*4;
-
-const r=
-data[i];
-
-const g=
-data[i+1];
-
-const b=
-data[i+2];
-
-let matched=false;
-
-if(
-cfg.tracking==="bright"
-){
-
-matched=
-r+g+b>690;
-
-}else{
-
-matched=
-colorMatch(
-r,
-g,
-b,
-target,
-cfg.tolerance
+showTrackBox(
+ball
 );
 
-}
-
-if(matched){
 
 /*
- * Les pixels des poteaux
- * sont ignorés pour éviter
- * qu'ils prennent le contrôle
- * du tracking.
- */
-
-const nearLeftPost=
-posts.left &&
-Math.abs(x-posts.left.x)<35;
-
-const nearRightPost=
-posts.right &&
-Math.abs(x-posts.right.x)<35;
-
-if(
-nearLeftPost ||
-nearRightPost
-){
-
-continue;
-
-}
-
-sx+=x;
-sy+=y;
-count++;
-
-}
-
-}
-
-}
-
-
-/*
- * Position tracking trouvée.
- */
-
-if(count>8){
-
-const x=
-sx/count;
-
-const y=
-sy/count;
-
-
-/*
- * Gardien + ballon.
+ * Gardien.
  */
 
 updateKeeper(
-x,
-y
+ball.x,
+ball.y
 );
 
 
 /*
- * Carré dans l'aperçu.
- *
- * On utilise les coordonnées
- * originales de la caméra.
+ * ======================
+ * 3. PROXIMITÉ
+ * ======================
  */
 
-$("trackBox").style.display=
-"block";
+const proximity=
+calculateWallProximity(
+ball,
+leftPost,
+rightPost
+);
 
-$("trackBox").style.left=
-(x/cfg.width*100)+"%";
+showProximity(
+ball,
+proximity
+);
 
-$("trackBox").style.top=
-(y/cfg.height*100)+"%";
+updateWallStatus(
+leftPost,
+rightPost,
+proximity
+);
 
 
 /*
- * COLLISION AVEC LE MUR.
+ * ======================
+ * 4. BUT
+ * ======================
  *
- * Le but est calculé uniquement
- * avec les deux poteaux détectés.
+ * GROS ≠ BUT.
+ *
+ * Le but dépend surtout de
+ * la distance du ballon au
+ * poteau détecté.
  */
 
 if(
 cfg.wallDetection==="on" &&
-isTouchingWall(
-x,
-y,
-posts
-)
+proximity.near
 ){
 
 triggerGoal();
@@ -1915,12 +2913,22 @@ triggerGoal();
 
 }else{
 
-$("trackBox").style.display=
-"none";
+$("trackBox")
+.style.display="none";
+
+$("proximityIndicator")
+.style.display="none";
+
+updateWallStatus(
+leftPost,
+rightPost,
+null
+);
 
 }
 
 }
+
 
 trackingTimer=
 requestAnimationFrame(
@@ -1928,6 +2936,7 @@ loop
 );
 
 }
+
 
 loop();
 
@@ -1995,7 +3004,7 @@ await loadCameras();
 
 
 /* =========================
-   TOLERANCE TRACKING
+   TRACKING TOLERANCE
 ========================= */
 
 $("tolerance")
@@ -2012,7 +3021,7 @@ event.target.value;
 
 
 /* =========================
-   TOLERANCE POTEAUX
+   POST TOLERANCE
 ========================= */
 
 $("postTolerance")
@@ -2029,7 +3038,7 @@ event.target.value;
 
 
 /* =========================
-   REFRESH CAMERA
+   REFRESH CAMERAS
 ========================= */
 
 $("refreshCamerasBtn")
@@ -2065,6 +3074,7 @@ $("resolution")
 .split("x")
 .map(Number);
 
+
 cfg.width=
 width;
 
@@ -2081,9 +3091,6 @@ $("tolerance").value
 
 cfg.tracking=
 $("tracking").value;
-
-cfg.preview=
-$("preview").value;
 
 cfg.wallDetection=
 $("wallDetection").value;
@@ -2102,6 +3109,9 @@ $("postTolerance").value
 cfg.mirror=
 $("mirror").value;
 
+cfg.preview=
+$("preview").value;
+
 cfg.cameraType=
 $("cameraType").value;
 
@@ -2114,18 +3124,8 @@ $("cameraSelect").value;
 
 
 /*
- * Couleurs des poteaux
- * dans le jeu + aperçu.
- */
-
-updatePreviewPosts();
-
-
-/*
- * Mirror uniquement pour
- * l'affichage vidéo.
- *
- * Le tracking reste identique.
+ * Mirror seulement sur
+ * l'aperçu.
  */
 
 $("camera").style.transform=
@@ -2181,7 +3181,7 @@ $("menu")
 
 
 /* =========================
-   INITIALISATION
+   CAMERA DEVICE CHANGE
 ========================= */
 
 if(
@@ -2196,7 +3196,10 @@ loadCameras
 
 }
 
-updatePreviewPosts();
+
+/* =========================
+   INIT
+========================= */
 
 loadCameras();
 
